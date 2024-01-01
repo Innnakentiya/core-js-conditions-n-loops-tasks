@@ -320,9 +320,83 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+
+function getBalanceIndex(arr) {
+  let totalSum = 0;
+  let leftSum = 0;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum += arr[i];
+  }
+
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum -= arr[i];
+
+    if (leftSum === totalSum) {
+      return i;
+    }
+
+    leftSum += arr[i];
+  }
+
+  return -1;
 }
+
+// function getBalanceIndex(arr) {
+//   for (let i = 0; i < arr.length; i += 1) {
+//     let leftSum = 0;
+//     let rightSum = 0;
+
+//     for (let j = 0; j < i; j += 1) {
+//       leftSum += arr[j];
+//     }
+
+//     for (let k = i + 1; k < arr.length; k += 1) {
+//       rightSum += arr[k];
+//     }
+
+//     if (leftSum === rightSum) {
+//       return i;
+//     }
+//   }
+
+//   return -1;
+// }
+
+// Some tests fail -->
+
+// function getBalanceIndex(arr) {
+//   if (arr.length < 3) {
+//     return -1;
+//   }
+
+//   let leftPointer = 0;
+//   let rightPointer = arr.length - 1;
+
+//   let leftSum = arr[leftPointer];
+//   let rightSum = arr[rightPointer];
+
+//   while (leftPointer < rightPointer) {
+//     if (leftSum < rightSum) {
+//       leftPointer += 1;
+//       leftSum += arr[leftPointer];
+//     } else if (leftSum > rightSum) {
+//       rightPointer -= 1;
+//       rightSum += arr[rightPointer];
+//     } else {
+//       leftPointer += 1;
+//       rightPointer -= 1;
+//       leftSum += arr[leftPointer];
+//       rightSum += arr[rightPointer];
+//     }
+//   }
+
+//   if (leftSum === rightSum && leftPointer === rightPointer) {
+//     return leftPointer;
+//   }
+
+//   return -1;
+// }
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
